@@ -30,3 +30,6 @@ package-lock.json
 .env
 .vscode/
 *.dylib
+
+# raw transcript recordings - keep only the .md extraction in git
+.transcripts/*.docx
