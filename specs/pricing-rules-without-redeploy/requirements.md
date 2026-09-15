@@ -45,3 +45,7 @@ Discussed 2026-09-15, see `.transcripts/2026-09-15-pricing-rules-feature-discuss
 story adds a row to the AGENTS.md service table. The reasons for a new service
 rather than a write path in products-microservice or a rules table in YugabyteDB
 are recorded in `docs/decisions/0002-pricing-rules-service.md`.
+
+Assumption (2026-09-15): a merchandiser can get a changed `pricing-rules.json`
+onto the host pricing-rules-microservice reads from without a redeploy. How the
+file gets there is outside this story.

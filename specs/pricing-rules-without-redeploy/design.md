@@ -55,6 +55,104 @@ When the rules service is unreachable, the cache hands the applier an empty
 rule set, `price` stays at the base value, and every consumer downstream sees
 original prices with no code path of its own to handle the outage.
 
+### Scenarios
+
+One sequence per flow the test plan exercises. `Rules` is pricing-rules-microservice, `Products` is products-microservice.
+
+**Scenario 1: a merchandiser changes a rule, one rule is invalid.**
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','actorBkg':'#eef0ff','actorBorder':'#555','signalColor':'#333','signalTextColor':'#111','noteBkgColor':'#fff3bf','noteBorderColor':'#555','fontSize':'14px'}}}%%
+sequenceDiagram
+    actor M as Merchandiser
+    participant F as pricing-rules.json
+    participant S as Rules: scheduler
+    participant L as Rules: loader
+    participant R as Rules: active set
+
+    M->>F: edit file (Books 20%, Toys 150%)
+    loop every 5 s
+        S->>F: read mtime
+    end
+    S->>L: mtime changed, reload
+    L->>F: read and parse JSON
+    L-->>L: Books 20% valid
+    L-->>L: Toys 150% skipped, WARN logged
+    L->>R: swap in {Books 20%}, skippedCount = 1
+    Note over R: new rules live within 30 s, no restart
+```
+
+**Scenario 2: a shopper opens a discounted product page.**
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','actorBkg':'#eef0ff','actorBorder':'#555','signalColor':'#333','signalTextColor':'#111','noteBkgColor':'#fff3bf','noteBorderColor':'#555','fontSize':'14px'}}}%%
+sequenceDiagram
+    actor U as Shopper
+    participant UI as react-ui
+    participant GW as api-gateway
+    participant P as Products
+    participant C as Products: rules cache
+    participant R as Rules
+    participant DB as cronos.products
+
+    U->>UI: open product page
+    UI->>GW: GET /api/v1/product/{asin}
+    GW->>P: GET /products-microservice/product/{asin}
+    P->>DB: read product (price 12.99, categories {Books, Gifts})
+    P->>C: rules()
+    alt cache older than 10 s
+        C->>R: GET /pricing-rules-microservice/rules (500 ms timeout)
+        R-->>C: [Books 20%, asin X 15%]
+    end
+    C-->>P: rules
+    P-->>P: largest match Books 20%, 12.99 -> 10.39 (half-up)
+    P-->>GW: {price: 10.39, originalPrice: 12.99, discountPercent: 20}
+    GW-->>UI: same JSON, fields kept by typed model
+    UI-->>U: $10.39 with $12.99 struck through
+```
+
+**Scenario 3: checkout with a discounted product in the cart.**
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','actorBkg':'#eef0ff','actorBorder':'#555','signalColor':'#333','signalTextColor':'#111','noteBkgColor':'#fff3bf','noteBorderColor':'#555','fontSize':'14px'}}}%%
+sequenceDiagram
+    actor U as Shopper
+    participant UI as react-ui
+    participant GW as api-gateway
+    participant CK as checkout-microservice
+    participant P as Products
+    participant DB as YCQL
+
+    U->>UI: checkout
+    UI->>GW: POST /api/v1/cart/checkout
+    GW->>CK: checkout(userId)
+    CK->>P: GET product/{asin} for each cart line
+    P-->>CK: {price: 10.39, originalPrice: 12.99}
+    CK-->>CK: total = 10.39 x qty (unchanged code, reads price)
+    CK->>DB: decrement inventory, insert order with total
+    CK-->>GW: order
+    GW-->>UI: order confirmation at discounted total
+```
+
+**Scenario 4: the rules service is down.**
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','actorBkg':'#eef0ff','actorBorder':'#555','signalColor':'#333','signalTextColor':'#111','noteBkgColor':'#fff3bf','noteBorderColor':'#555','fontSize':'14px'}}}%%
+sequenceDiagram
+    participant P as Products
+    participant C as Products: rules cache
+    participant R as Rules (down)
+    participant Any as gateway / checkout
+
+    Any->>P: any product read
+    P->>C: rules()
+    C-xR: GET rules, connection refused or 500 ms timeout
+    C-->>P: [] for the next 10 s
+    P-->>P: no rules match, price unchanged
+    P-->>Any: {price: 12.99} with no originalPrice
+    Note over Any: storefront shows base price, checkout totals at base price
+```
+
 ## Touchpoints
 
 | Service or file | Change |
@@ -95,6 +193,8 @@ Validation: `id` non-empty and unique; `type` is `percent_off` (unknown types
 are skipped now, so quantity-based types can be added later); `match` has
 exactly one of `asin` or `category`; `percent` is a number in 0 to 100
 inclusive.
+
+**Where the rules file lives.** `pricing.rules.path` defaults to `../resources/pricing-rules.json`, so in local dev it is the `resources/pricing-rules.json` file in the checkout on the machine running pricing-rules-microservice. **Assumption, agreed 2026-09-15:** a merchandiser has some way to upload a changed file to the host the service reads from without a redeploy (a shared folder, a mounted volume, or a copy step owned by operations). That mechanism is outside this story. Once the file lands, the scheduler picks it up within 30 s with no restart. The follow-up write-API story replaces the upload with an authenticated endpoint.
 
 ## Criteria mapping
 
