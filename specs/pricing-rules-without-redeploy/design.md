@@ -15,37 +15,43 @@ totals with no logic change; the storefront only needs to render the original
 price when one is present, and the gateway's typed copies of the product models
 need the two new fields so Jackson does not drop them in transit.
 
+**Services and data flow.** Solid arrows are runtime calls; the dotted arrow
+is the file read. Only the two shaded boxes change.
+
 ```mermaid
-flowchart LR
-    M[Merchandiser] -- edits --> F[(resources/pricing-rules.json)]
+flowchart TB
+    M([Merchandiser]) -->|edits| F[(pricing-rules.json)]
+    F -.->|poll mtime every 5 s| PR
 
-    subgraph PR[pricing-rules-microservice :8087]
-        S[RulesRefreshScheduler<br/>polls mtime every 5 s] --> L[RulesFileLoader<br/>validate, skip and log]
-        L --> R[Active rule set]
-        R --> G[GET /pricing-rules-microservice/rules]
-    end
-    F -. read on change .-> S
+    PR["pricing-rules-microservice :8087<br/>load, validate, GET /rules"]
+    P["products-microservice :8082<br/>apply largest percent-off<br/>price = effective, + originalPrice"]
+    GW[api-gateway :8081]
+    UI[react-ui storefront]
+    CK[checkout-microservice :8086]
 
-    subgraph P[products-microservice :8082]
-        C[PricingRulesRestClient<br/>500 ms timeout] --> K[PricingRulesCache<br/>10 s TTL, empty on failure]
-        K --> A[PriceRuleApplier<br/>largest percent wins]
-        DB[(YCQL cronos.products)] --> A
-        A --> O["price = effective<br/>originalPrice, discountPercent"]
-    end
-    G --> C
+    PR -->|GET rules, 500 ms timeout| P
+    P --> GW --> UI
+    P --> CK
 
-    O --> GW[api-gateway-microservice :8081<br/>typed models carry new fields]
-    GW --> UI[react-ui storefront<br/>shows original price struck through]
-    O --> CK[checkout-microservice :8086<br/>unchanged: totals use price]
-    O --> CART[cart page<br/>unchanged: uses price]
-
-    E[Eureka :8761] -.- PR
-    E -.- P
+    style PR fill:#fff3bf,stroke:#333
+    style P fill:#fff3bf,stroke:#333
 ```
 
-When the rules service is unreachable, the cache returns an empty rule set, the
-applier leaves `price` untouched, and every consumer downstream sees original
-prices.
+**Inside products-microservice.** One product read, rules unavailable path on
+the right.
+
+```mermaid
+flowchart TB
+    DB[(cronos.products)] --> A
+    C[PricingRulesRestClient] --> K[PricingRulesCache<br/>10 s TTL]
+    K -->|rules| A[PriceRuleApplier]
+    K -.->|client failed:<br/>empty rules| A
+    A --> R["price, originalPrice,<br/>discountPercent"]
+```
+
+When the rules service is unreachable, the cache hands the applier an empty
+rule set, `price` stays at the base value, and every consumer downstream sees
+original prices with no code path of its own to handle the outage.
 
 ## Touchpoints
 
