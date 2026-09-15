@@ -15,3 +15,4 @@ raw transcript, for quick reference without re-reading the whole thing.
 ## Index
 
 - [2026-09-14-kickoff-meeting](2026-09-14-kickoff-meeting.md) ([recap](2026-09-14-kickoff-meeting-recap.md)) — Team "Pirate Brown Pants" (Team #2) kickoff: brownfielding Yugastore, agent-agnostic tooling, agentic collaboration, CMS/business-rules gap, no Kubernetes, plain-jar local dev.
+- [2026-09-14-collaboration-playbook-review](2026-09-14-collaboration-playbook-review.md) ([recap](2026-09-14-collaboration-playbook-review-recap.md)) — Afternoon working session: Issues enabled, spec-to-issue mirroring, "spec-enabled not spec-driven", PRs for process changes, AGENTS.md to principles with a setup skill, review-pr recommends only, personas as skills.
