@@ -60,7 +60,9 @@ YugabyteDB (YSQL + YCQL) with a React UI and Eureka service discovery.
 |---|---|---|
 | `AGENTS.md` | Project rules and operating context | Keep short and policy-oriented |
 | `CLAUDE.md` | Claude-specific wrapper | Imports this file; keep minimal |
-| `.agents/skills/<name>/SKILL.md` | Role-specific tasks and setup recipes | Canonical for agent behavior |
+| `.agents/skills/<name>/SKILL.md` | Canonical role-specific tasks & personas | Vendor-agnostic (Agent Skills standard) |
+| `.github/agents/*.agent.md` | Copilot custom agent personas | Workspace-level agents (e.g., Spec Writer) |
+| `.claude/agents/*.md` | Claude custom agent personas | Workspace-level agents (e.g., Spec Writer) |
 | `specs/<slug>/` | One folder per story | `requirements.md`, `design.md`, `tasks.md` |
 | `docs/process/` | Team workflow and conventions | Read before changing process |
 | `docs/decisions/` | Architecture decisions | Short rationale records |
