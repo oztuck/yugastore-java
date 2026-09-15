@@ -411,3 +411,4 @@ rm "$STATE_TMP"
 - Don't span table cells in a single replace
 - Always include `by: "ai:yugastore-agent"` on every op and `X-Agent-Id: ai:yugastore-agent` in headers for consistent attribution
 - Reuse `baseToken` from your most recent `/state` or `/snapshot` read; on `STALE_BASE`, re-read and retry once
+- Each `/edit/v2` block must parse as one markdown node. A block containing a blank line (for example a Mermaid sequence diagram with a blank line after its participants) fails with `INVALID_BLOCK_MARKDOWN`. Split on code fences, not on blank lines, and run large batches through `?dryRun=1` one block at a time to find the offender
