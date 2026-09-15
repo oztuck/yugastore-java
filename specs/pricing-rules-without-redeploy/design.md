@@ -15,6 +15,38 @@ totals with no logic change; the storefront only needs to render the original
 price when one is present, and the gateway's typed copies of the product models
 need the two new fields so Jackson does not drop them in transit.
 
+```mermaid
+flowchart LR
+    M[Merchandiser] -- edits --> F[(resources/pricing-rules.json)]
+
+    subgraph PR[pricing-rules-microservice :8087]
+        S[RulesRefreshScheduler<br/>polls mtime every 5 s] --> L[RulesFileLoader<br/>validate, skip and log]
+        L --> R[Active rule set]
+        R --> G[GET /pricing-rules-microservice/rules]
+    end
+    F -. read on change .-> S
+
+    subgraph P[products-microservice :8082]
+        C[PricingRulesRestClient<br/>500 ms timeout] --> K[PricingRulesCache<br/>10 s TTL, empty on failure]
+        K --> A[PriceRuleApplier<br/>largest percent wins]
+        DB[(YCQL cronos.products)] --> A
+        A --> O["price = effective<br/>originalPrice, discountPercent"]
+    end
+    G --> C
+
+    O --> GW[api-gateway-microservice :8081<br/>typed models carry new fields]
+    GW --> UI[react-ui storefront<br/>shows original price struck through]
+    O --> CK[checkout-microservice :8086<br/>unchanged: totals use price]
+    O --> CART[cart page<br/>unchanged: uses price]
+
+    E[Eureka :8761] -.- PR
+    E -.- P
+```
+
+When the rules service is unreachable, the cache returns an empty rule set, the
+applier leaves `price` untouched, and every consumer downstream sees original
+prices.
+
 ## Touchpoints
 
 | Service or file | Change |
