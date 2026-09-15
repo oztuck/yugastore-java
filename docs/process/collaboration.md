@@ -120,15 +120,16 @@ See [spec-convention.md](spec-convention.md) for the exact shape of each file.
 
 ### 2. Design
 
-* **Owner:** Developer.
+* **Owner:** Developer, in conversation with the requirements author.
 
 * **Input:** An `accepted` requirements file.
 
 * **How:** Create a branch named after the slug. Run the `design-spec` skill,
-  which reads the requirements and the codebase and drafts `design.md` and
-  `tasks.md` in the same folder. Any design choice with no EARS line behind
-  it is listed under open questions in `design.md` and raised with the
-  author before building.
+  which invokes `design-interview` to align with the author on design approach,
+  constraints, and technology choices, then reads the codebase and drafts 
+  `design.md` and `tasks.md` in the same folder. Any design choice with no 
+  EARS line behind it is listed under open questions in `design.md` and raised 
+  with the author before building.
 
 * **Output:** `design.md` and `tasks.md` committed on the branch. Status flipped to `in-progress`. Issue labeled `in-progress`, with the `tasks.md` checklist mirrored into the issue body as task checkboxes. The developer ticks boxes in `tasks.md`; the skill re-syncs them to the issue.
 

@@ -1,6 +1,6 @@
 ---
 name: design-interview
-description: Collaboratively interview the requirements author to validate design approach and decisions before design.md is written. Use when you need to align with the human on design choices, priorities, and constraints. Ensures design direction is agreed upon.
+description: Interview the requirements author on design priorities, constraints, technology choices, and risks before design.md is written, and return a validated design direction. Use at the Design stage before drafting design.md, when asked to "walk me through the design", "check the approach with me", "what are we optimizing for", or when invoked by design-spec.
 ---
 
 # design-interview
@@ -13,27 +13,39 @@ reflects agreed-upon decisions, not agent-only choices.
 Read `docs/process/spec-convention.md` and `docs/process/collaboration.md`
 first to understand the design stage and file shapes.
 
+## Input
+
+`specs/<slug>/requirements.md` with `status: accepted`.
+
+## When to skip
+
+If the requirements already specify the approach in detail, or the author
+says "just design it without a discussion", collapse step 3 (propose, confirm)
+and stop. Small stories with a clear path do not need a full interview.
+
 ## Steps
 
 1. Read `specs/<slug>/requirements.md` and understand the acceptance criteria.
-2. Skim the services and files mentioned in the requirements. Do not deeply
-   read the codebase; just orient yourself on what exists.
+2. If you have not already read them, skim the services and files mentioned in
+   the requirements enough to understand what exists. If you are invoked by
+   `design-spec`, reuse the codebase context from its step 2 rather than
+   re-reading.
 3. Propose an initial design approach (2-3 sentences: what changes, which
    services, why this direction). Say "Here's what I'm thinking..." and ask
    if this aligns with their intent.
-4. Interview the author on design decisions. Ask about:
-   - **Priorities**: Performance, simplicity, consistency with existing patterns,
-     or something else?
-   - **Constraints**: Budget, timeline, team skills, deployment windows, data
-     residency, or compliance?
-   - **Technology**: Any services or tech the author prefers or wants to avoid?
+4. Interview the author on design decisions, one topic at a time in plain
+   language. Ask only about topics the requirements leave open. Stop when you
+   can answer all three: (1) What is the main approach? (2) What are the 1-2
+   most important constraints or priorities the design must respect? 
+   (3) Are there technology choices that differ from the default pattern?
+   Use these as optional probes only if relevant:
    - **Scale**: Expected load, data volume, or growth assumptions?
-   - **Risk**: What could break the feature? What's the acceptable failure mode?
-   - **Integration**: Does this touch external systems, other teams, or
-     deprecated code that needs a migration strategy?
+   - **Risk**: What could break the feature? Acceptable failure mode?
+   - **Integration**: External systems, other teams, or deprecated code needing
+     a migration strategy?
 5. For any significant design choice (new endpoint, schema change, service
-   boundary shift), ask: "Why does it need to work this way?" or "What
-   happens if we do it differently?"
+   boundary shift) that has no acceptance criterion behind it, ask: "Why does
+   it need to work this way?" or "What happens if we do it differently?"
 6. Document the decisions. Create a summary of what was agreed:
    - Initial approach (author-validated)
    - Key constraints or priorities the design must respect
@@ -46,8 +58,11 @@ first to understand the design stage and file shapes.
 ## Output
 
 A clear, documented design direction that the author has explicitly validated.
-The summary is ready for design-spec (or another skill) to use when writing
-`design.md` and `tasks.md`. Include:
+The summary is returned in-conversation (not written to a file) and is ready
+for `design-spec` (or another skill) to use when writing `design.md`. The
+Approach, Key Constraints, and Technology Decisions sections are mandatory;
+the rest may be `none` if not discussed. These sections feed the same-named
+sections of `design.md`:
 
 ```
 ## Validated Design Direction
@@ -58,11 +73,11 @@ The summary is ready for design-spec (or another skill) to use when writing
 
 **Technology Decisions:** [What and why]
 
-**Risk Areas:** [Known hazards or concerns raised]
+**Risk Areas:** [Known hazards or concerns raised; write "none" if not discussed]
 
-**Rejected Alternatives:** [What was considered and dismissed, and why]
+**Rejected Alternatives:** [What was considered and dismissed; write "none" if none discussed]
 
-**Open Questions:** [Anything that needs author input before building]
+**Open Questions:** [Anything that needs author input before building; write "none" if resolved]
 ```
 
 ## Done when
