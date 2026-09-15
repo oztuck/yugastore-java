@@ -16,11 +16,15 @@ The file shapes and rules are in `docs/process/spec-convention.md` (sections
    day, per the status lifecycle).
 2. Read the services the criteria name. Start from the AGENTS.md architecture
    table, then the controller, repository, and config for each.
+2a. Invoke the `design-interview` skill to collaboratively validate the design
+   approach with the requirements author. This ensures design choices and
+   constraints are agreed upon before writing the design doc.
 3. Create the branch: `git checkout -b <slug> master`.
 4. Write `specs/<slug>/design.md` using the template in spec-convention.md:
    approach, touchpoints, data, criteria mapping, open questions, rejected
    alternatives. Any change with no criterion behind it goes under open
-   questions, not into the plan.
+   questions, not into the plan. Incorporate the validated design direction
+   from the design-interview step.
 5. Write `specs/<slug>/tasks.md` using the template in spec-convention.md:
    numbered, one commit each, each naming the criteria it serves in
    parentheses.
