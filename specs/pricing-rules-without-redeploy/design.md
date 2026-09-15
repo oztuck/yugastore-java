@@ -96,7 +96,7 @@ inclusive.
 | WHEN the rules file changes on disk THE pricing-rules-microservice SHALL serve the new rules within 30 seconds without a restart | `RulesRefreshScheduler` polls mtime every 5 s and swaps the in-memory rule set atomically |
 | THE pricing-rules-microservice SHALL return the active rules as JSON from a GET endpoint | `GET /pricing-rules-microservice/rules` |
 | WHEN a product's ASIN matches a percent-off rule THE products-microservice SHALL return the discounted price and the original price in the product response | `PriceRuleApplier` ASIN match; `price` discounted, `originalPrice` set |
-| WHEN a product belongs to a category with a percent-off rule THE products-microservice SHALL return the discounted price and the original price in the product response | `PriceRuleApplier` category match against `ProductMetadata.categories`; for `ProductRanking` rows, against the row's own category key |
+| WHEN a product belongs to a category with a percent-off rule THE products-microservice SHALL return the discounted price and the original price in the product response | `PriceRuleApplier` category match against `ProductMetadata.categories`; for `ProductRanking` rows, against the row's own category key only (accepted gap, see Out of scope in requirements.md) |
 | WHEN more than one percent-off rule matches a product THE products-microservice SHALL apply only the largest discount | `PriceRuleApplier` picks max `percent`; ties resolved by first rule in file order |
 | WHEN a product has a discounted price THE storefront SHALL show the discounted price and the original price on the product list and product page | Gateway passes fields through; `Products` and `ShowProduct` components render `originalPrice` struck through when present |
 | WHEN an order is placed for a discounted product THE checkout-microservice SHALL total the order using the discounted price | Unchanged `CheckoutServiceImpl.getTotal` multiplies `productDetails.getPrice()`, which is now the effective price |
@@ -104,24 +104,15 @@ inclusive.
 | IF the rules file is missing or is not valid JSON THEN THE pricing-rules-microservice SHALL log the reason and serve an empty rule set | `RulesFileLoader` catches `NoSuchFileException` and `JsonProcessingException`, logs ERROR, serves `rules: []` |
 | WHILE the pricing-rules-microservice is unavailable THE products-microservice SHALL return original prices with no discount | `PricingRulesCache` returns empty list on any client failure; applier with no rules leaves `price` unchanged and `originalPrice` null |
 | WHILE the pricing-rules-microservice is unavailable THE checkout-microservice SHALL total orders at original prices | Follows from the previous row: checkout reads `price` from products-microservice |
+| THE products-microservice SHALL round a discounted price to the nearest cent, rounding half-up | `PriceRuleApplier` uses `BigDecimal.setScale(2, RoundingMode.HALF_UP)` |
 
 ## Open questions
 
 - The spec is `status: proposed`, not `accepted`, and overlaps with
   `specs/promo-pricing/` (#1), which puts a write path and time-bound promos
-  inside products-microservice. This design was produced on the author's
-  instruction to proceed on a branch. The team must reconcile #1 and #2 before
-  anything merges.
-- Category listing pages read `product_rankings`, whose rows carry a single
-  category. A category rule for one of a product's *other* categories will
-  apply on the product page but not on that listing row. Proposed: accept for
-  this story and note it in the test plan. Alternative is a second lookup per
-  row, which multiplies reads on the listing endpoint.
-- No gateway route is planned for `/api/v1/pricing-rules`, because no
-  criterion asks for one. The tester can hit port 8087 directly. Add a route if
-  the storefront or a future admin page needs it.
-- Rounding: percent-off can produce fractional cents. The design rounds
-  half-up to two decimals. No criterion states this; confirm or change.
+  inside products-microservice. The author chose on 2026-09-15 to leave this
+  open and proceed on this branch for our spec only. The team must reconcile
+  #1 and #2 before anything merges to `master`.
 
 ## Rejected alternatives
 
@@ -139,3 +130,10 @@ inclusive.
   both WHILE criteria say original prices, no discount.
 - **Rules in YugabyteDB or a third-party CMS.** See
   `docs/decisions/0002-pricing-rules-service.md`.
+- **Extra category lookup on listing pages.** A batched `IN` query per
+  listing page would make category rules correct on every listing row.
+  Rejected for this story on 2026-09-15: it adds reads to the busiest
+  endpoint for a corner case. Recorded as a known gap instead.
+- **Gateway route `/api/v1/pricing-rules`.** No criterion asks for it and the
+  rules call is service-to-service. Rejected on 2026-09-15; the tester reads
+  port 8087 directly. The future write-API story will add gateway exposure.

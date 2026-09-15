@@ -21,6 +21,7 @@ IF a rule has a percentage outside 0 to 100 or is missing a required field THEN 
 IF the rules file is missing or is not valid JSON THEN THE pricing-rules-microservice SHALL log the reason and serve an empty rule set.
 WHILE the pricing-rules-microservice is unavailable THE products-microservice SHALL return original prices with no discount.
 WHILE the pricing-rules-microservice is unavailable THE checkout-microservice SHALL total orders at original prices.
+THE products-microservice SHALL round a discounted price to the nearest cent, rounding half-up.
 
 ## Out of scope
 
@@ -31,6 +32,10 @@ WHILE the pricing-rules-microservice is unavailable THE checkout-microservice SH
 - Scheduling rules by start and end date.
 - Price history or audit of rule changes.
 - Discounts shown on the cart page.
+- Category rules on category listing pages for a product's *other* categories.
+  Listing rows carry only the category being listed, so a product in Books and
+  Gifts discounted via a Books rule shows full price on the Gifts listing. Known
+  gap, accepted 2026-09-15; the product page is correct.
 
 ## Notes
 
