@@ -7,3 +7,4 @@ design-spec skills regenerate it. Shape: `docs/process/spec-convention.md`.
 |---|---|---|
 | [Change pricing rules without a redeploy](pricing-rules-without-redeploy/requirements.md) | `proposed` | #2 |
 | [Configure time-bound promo pricing without a redeploy](promo-pricing/requirements.md) | `proposed` | #1 |
+| [Update product data without redeploying](live-product-updates/requirements.md) | `proposed` | #4 |
