@@ -18,7 +18,7 @@ The file shapes and rules are in `docs/process/spec-convention.md` (sections
    table, then the controller, repository, and config for each.
 3. Unless the requirements already specify the approach, invoke the 
    `design-interview` skill to collaboratively validate the design approach
-   with the requirements author. Carry its Validated Design Direction (Approach,
+   with the requirements author. Carry its Validated Direction (Approach,
    Key Constraints, Technology Decisions, Open Questions) into step 5 below.
 4. Create the branch: `git checkout -b <slug> master`.
 5. Write `specs/<slug>/design.md` using the template in spec-convention.md:

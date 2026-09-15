@@ -1,17 +1,18 @@
 ---
 name: design-interview
-description: Interview the requirements author on design priorities, constraints, technology choices, and risks before design.md is written, and return a validated design direction. Use at the Design stage before drafting design.md, when asked to "walk me through the design", "check the approach with me", "what are we optimizing for", or when invoked by design-spec.
+description: Interview the requirements author on priorities, constraints, technology choices, and risks to validate an approach or brainstorm a direction. Use when deciding how to build something, before writing a design or spec, when asked to "walk me through the approach", "check my thinking", "what are we optimizing for", or when invoked by design-spec.
 ---
 
 # design-interview
 
-You are facilitating a collaborative design conversation between yourself (the
-agent) and the requirements author. The goal is to understand and document the
-human's design priorities, constraints, and preferences so that the design.md
-reflects agreed-upon decisions, not agent-only choices.
+You are facilitating a collaborative conversation between yourself (the agent)
+and the requirements author to validate an approach or brainstorm a direction.
+The goal is to understand and document the human's priorities, constraints, and
+preferences so that any downstream artifact (design document, brainstorm, or
+decision) reflects agreed-upon choices, not agent-only assumptions.
 
 Read `docs/process/spec-convention.md` and `docs/process/collaboration.md`
-first to understand the design stage and file shapes.
+first to understand the project's design and spec lifecycle.
 
 ## Input
 
@@ -57,19 +58,19 @@ and stop. Small stories with a clear path do not need a full interview.
 
 ## Output
 
-A clear, documented design direction that the author has explicitly validated.
-The summary is returned in-conversation (not written to a file) and is ready
-for `design-spec` (or another skill) to use when writing `design.md`. The
-Approach, Key Constraints, and Technology Decisions sections are mandatory;
-the rest may be `none` if not discussed. These sections feed the same-named
-sections of `design.md`:
+A clear, documented direction that the author has explicitly validated. The
+summary is returned in-conversation (not written to a file) for the agent or
+human to use in writing downstream artifacts. The Approach, Key Constraints,
+and Technology Decisions sections are mandatory; the rest may be `none` if not
+discussed. When used in the Design stage (via `design-spec`), these sections
+correspond to the same-named sections of `design.md`:
 
 ```
-## Validated Design Direction
+## Validated Direction
 
 **Approach:** [Author-agreed approach summary]
 
-**Key Constraints:** [What the design must respect]
+**Key Constraints:** [What the solution must respect]
 
 **Technology Decisions:** [What and why]
 
