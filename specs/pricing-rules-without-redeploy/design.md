@@ -19,6 +19,7 @@ need the two new fields so Jackson does not drop them in transit.
 is the file read. Only the two shaded boxes change.
 
 ```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','edgeLabelBackground':'#f4f4f4','clusterBkg':'#ffffff','fontSize':'14px'}}}%%
 flowchart TB
     M([Merchandiser]) -->|edits| F[(pricing-rules.json)]
     F -.->|poll mtime every 5 s| PR
@@ -41,6 +42,7 @@ flowchart TB
 the right.
 
 ```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','edgeLabelBackground':'#f4f4f4','clusterBkg':'#ffffff','fontSize':'14px'}}}%%
 flowchart TB
     DB[(cronos.products)] --> A
     C[PricingRulesRestClient] --> K[PricingRulesCache<br/>10 s TTL]
