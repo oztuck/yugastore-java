@@ -13,6 +13,8 @@ setup skill under `.agents/skills/`.
   `docs/process/spec-convention.md`.
 - Do not add new infrastructure, scripts, or service assumptions without a
   clear reason tied to the story.
+- Commit only when a skill step names a commit or the human asks. Otherwise
+  leave edits in the working tree and say they are uncommitted.
 
 ## Project
 
@@ -53,6 +55,9 @@ YugabyteDB (YSQL + YCQL) with a React UI and Eureka service discovery.
   assume they have defaults.
 - The catalog is intentionally read-only today; pricing and write paths are
   tracked as future work.
+- `gh` in this checkout defaults to the upstream YugabyteDB-Samples repo, so
+  `gh issue` and `gh pr` commands must pass `--repo oztuck/yugastore-java`, or
+  run `gh repo set-default oztuck/yugastore-java` once per machine.
 
 ## Repository layout for agents
 

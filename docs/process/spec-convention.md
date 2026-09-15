@@ -181,6 +181,15 @@ Rules:
   criterion behind it goes to open questions, not into the code.
 - Keep it short. The design explains the shape of the change to a reviewer;
   it is not a specification of every method.
+- Diagrams are optional and go at the end of Approach. Use Mermaid, laid out
+  top-down (`flowchart TB`), since wide left-to-right charts are unreadable in
+  editor previews. Start every diagram with the light-theme init directive
+  below so it renders on dark editors. Where the story has distinct runtime
+  flows, add one `sequenceDiagram` per flow the test plan will exercise.
+
+  ```
+  %%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#eef0ff','primaryBorderColor':'#555','primaryTextColor':'#111','lineColor':'#333','edgeLabelBackground':'#f4f4f4','fontSize':'14px'}}}%%
+  ```
 
 ## tasks.md
 
