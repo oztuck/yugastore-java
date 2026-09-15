@@ -1,0 +1,26 @@
+{
+  "skill_name": "design-interview",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "pinned-approach-skip-logic",
+      "prompt": "Run design-interview on specs/live-product-updates/requirements.md. This spec already states 'products-microservice SHALL persist the changed product fields' and 'THE products-microservice SHALL continue serving the last successfully persisted product values while no update is being committed.' The approach is pinned: PUT endpoint, atomic updates, retry once on transient failure. Test whether the skill correctly recognizes the approach is already specified and focuses the interview only on constraints (no schema changes, atomic updates, retry behavior) rather than proposing alternative approaches.",
+      "expected_output": "Validated Direction summary that: (1) acknowledges the pinned approach without re-proposing it, (2) surfaces 1-2 key constraints (no schema changes, atomicity, retry strategy), (3) asks about performance/caching if products-microservice calls this frequently, (4) documents risk areas the author accepts. Should skip 'When to skip' clause and move directly to focused interview on open questions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "pricing-rules-constraints-surface",
+      "prompt": "Run design-interview on specs/pricing-rules-without-redeploy/requirements.md. This spec says 'THE pricing-rules-microservice SHALL load pricing rules from a JSON file at a path set in its configuration' and 'WHEN the rules file changes on disk THE pricing-rules-microservice SHALL serve the new rules within 30 seconds without a restart.' Multiple design choices are ambiguous: (A) new service vs. write path in products-microservice? (B) filesystem vs. database? (C) polling interval (just says 'within 30s')? (D) cache duration in products-microservice? Test whether the skill's interview questions surface these trade-offs and capture the author's reasoning for each.",
+      "expected_output": "Validated Direction summary that captures: (1) architectural choice (new service vs. write path), (2) storage medium (filesystem with assumptions about operator upload), (3) polling interval and cache duration with rationale, (4) performance trade-offs (responsiveness vs. cross-platform portability), (5) known gaps (ProductRanking category matching scope). Should produce Output sections that match or exceed the actual design.md's Approach, Key Constraints, Technology Decisions, and Rejected Alternatives.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "greenfield-approach-proposal",
+      "prompt": "You are a requirements author. Here is your spec: 'As an operations team, we want to roll back a deployed service to a previous version without manual git/deployment work, so that hotfixes can be deployed and reverted quickly. Current state: services are deployed via Maven from master branch, each service is tagged with its version. Future state: ops can request a rollback via a command-line tool that lists past deployments and redeploys a chosen version without a code change.' The spec has acceptance criteria for the command (list versions, select version, trigger redeployment) but no design direction yet (should it be a new tool, an extension to setup-local, a Kubernetes concept, a shell wrapper around Maven, something else?). Run design-interview to collaborate with you on the approach. Test whether the skill correctly: (1) proposes an initial direction based on context, (2) asks clarifying questions about constraints (deployment frequency, rollback time target, who runs it, safety/approval gates), (3) captures the author's preferences and documents a Validated Direction the author agrees with.",
+      "expected_output": "Validated Direction summary that: (1) proposes a reasonable initial approach (e.g., 'shell wrapper around Maven that reads git tags and triggers rebuild+redeploy'), (2) captures constraints from the author's context (deployment frequency, target rollback time, who has access), (3) documents rejected alternatives the author considered, (4) leaves open questions if the author hasn't decided on approval gates or monitoring. Should demonstrate the skill works when the approach is genuinely open and needs collaborative discovery.",
+      "files": []
+    }
+  ]
+}
