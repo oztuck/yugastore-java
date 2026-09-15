@@ -2,18 +2,13 @@
 
 ## Approach
 
-Add a seventh module, `pricing-rules-microservice`, that loads a JSON rules
-file from a configured path, re-reads it when the file's modification time
-changes, and serves the valid rules over one GET endpoint. It has no database.
-`products-microservice` fetches those rules through a Feign client with a short
-timeout and a short in-memory cache, applies the single largest matching
-percent-off rule to each product it returns, and reports the result by keeping
-`price` as the effective price and adding `originalPrice` and
-`discountPercent`. Because checkout, the cart page, and the storefront all
-already read `price` from products-microservice, they pick up discounted
-totals with no logic change; the storefront only needs to render the original
-price when one is present, and the gateway's typed copies of the product models
-need the two new fields so Jackson does not drop them in transit.
+In one sentence: a new file-driven rules service, and products-microservice applies its rules so every consumer sees discounted prices through the field they already read.
+
+- **New service.** Add a seventh module, `pricing-rules-microservice`. It loads a JSON rules file from a configured path, re-reads it when the file's modification time changes, and serves the valid rules over one GET endpoint. It has no database.
+- **Products applies the rules.** `products-microservice` fetches rules through a Feign client with a short timeout and a short in-memory cache, then applies the single largest matching percent-off rule to each product it returns.
+- **`price` stays the effective price.** The response keeps `price` as the discounted price and adds `originalPrice` and `discountPercent`.
+- **Downstream is unchanged.** Checkout, the cart page, and the storefront already read `price`, so they pick up discounted totals with no logic change.
+- **Two small edits in transit.** The storefront renders the original price when present, and the gateway's typed product models gain the two new fields so Jackson does not drop them.
 
 **Services and data flow.** Solid arrows are runtime calls; the dotted arrow
 is the file read. Only the two shaded boxes change.
@@ -170,7 +165,8 @@ sequenceDiagram
 | `products-microservice/.../controller/ProductCatalogController` | Apply the rule applier to every product in all three GET responses |
 | `api-gateway-microservice/.../domain/ProductMetadata`, `ProductRanking` | Add the two fields so the gateway's typed pass-through keeps them |
 | `react-ui/frontend/src/components/Products/index.js`, `ShowProduct/index.js` | When `originalPrice` is present, render it struck through next to `price`, plus the percent badge |
-| `AGENTS.md` | New service row (8087, no API, "pricing rules from `resources/pricing-rules.json`, hot-reloaded"), add to run order after Eureka, gotcha that edits take up to 30 s |
+| `AGENTS.md` | New architecture table row (8087, no API, "pricing rules from `resources/pricing-rules.json`, hot-reloaded"); reword the gotcha that says pricing is future work |
+| `.agents/skills/setup-local/SKILL.md` | Add the service to the start order after Eureka, the rules file path, that edits take up to 30 s, and the upload assumption |
 
 `react-ui`'s Spring layer (`DashboardRestConsumer`) returns the gateway's JSON
 as a raw string, so its Java `ProductMetadata` model needs no change. Checkout
@@ -237,7 +233,12 @@ inclusive.
 - **Serve last-known rules when the rules service is down.** Rejected because
   both WHILE criteria say original prices, no discount.
 - **Rules in YugabyteDB or a third-party CMS.** See
-  `docs/decisions/0002-pricing-rules-service.md`.
+  `docs/decisions/0002-pricing-rules-service.md`. Reconsidered on 2026-09-15
+  during design review and kept as the file: a table is multi-instance safe
+  and gives history, but today a merchandiser would still need CQL or the
+  deferred write API, and the loader isolates storage so the swap later is
+  contained. A file-as-source, table-as-store hybrid was also rejected as more
+  code than the story needs.
 - **Extra category lookup on listing pages.** A batched `IN` query per
   listing page would make category rules correct on every listing row.
   Rejected for this story on 2026-09-15: it adds reads to the busiest
