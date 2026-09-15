@@ -1,6 +1,6 @@
 # Update product data without redeploying
 
-status: accepted
+status: in-progress
 issue: #4
 
 ## Story

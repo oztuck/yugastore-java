@@ -1,0 +1,8 @@
+# Tasks: Update product data without redeploying
+
+- [ ] 1. Add `sale` and `discount` handling to ProductMetadata and schema.cql (WHEN an update changes price, sale or discount values)
+- [ ] 2. Add an update request/response shape and validation for mutable product fields (IF any submitted field is invalid, IF an update is rejected)
+- [ ] 3. Add ProductService update logic with existing-product lookup, merge, save, and one transient-failure retry (WHEN an internal API caller submits a valid update, IF the submitted ASIN does not identify, IF the database operation fails transiently, IF the retry also fails, THE products-microservice SHALL continue serving)
+- [ ] 4. Add the products-microservice PUT endpoint and human-readable error responses (WHEN an internal API caller submits a valid update, IF the submitted ASIN does not identify, IF any submitted field is invalid, IF the retry also fails, THE products-microservice SHALL accept updates)
+- [ ] 5. Add focused products-microservice tests for successful persistence and next-read visibility (WHEN an internal API caller submits a valid update, WHEN a product update is successfully persisted, WHEN an update changes price, sale or discount values)
+- [ ] 6. Add focused products-microservice tests for 404, invalid request rejection, no partial update, and retry exhaustion (IF the submitted ASIN does not identify, IF any submitted field is invalid, IF an update is rejected, IF the database operation fails transiently, IF the retry also fails, THE products-microservice SHALL continue serving)
