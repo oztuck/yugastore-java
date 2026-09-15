@@ -23,11 +23,15 @@ first and follow it exactly. The stage this serves is Specify in
 3. Draft the story sentence and the acceptance criteria as EARS statements.
    Name services from the AGENTS.md architecture table, or `the storefront`
    for anything visible in the browser. One behavior per line.
-4. Show the draft and ask for corrections until the author agrees.
-5. Choose a slug: short, lowercase, hyphenated, outcome not implementation.
+4. Choose a slug: short, lowercase, hyphenated, outcome not implementation.
    Check `specs/` for collisions.
-6. Write `specs/<slug>/requirements.md` with `status: proposed` and
+5. Write `specs/<slug>/requirements.md` with `status: proposed` and
    `issue: none`.
+6. Hand the file to the `proof` skill for human-in-the-loop review: upload
+   it, share the link, ingest the author's comments, and sync the reviewed
+   file back to `specs/<slug>/requirements.md`. Repeat until the author
+   approves. Fall back to showing the draft in the terminal only if Proof
+   is unreachable.
 7. Regenerate `specs/README.md`: a table of every spec folder with title,
    status, and issue, read from each `requirements.md`.
 8. Commit both files to `master` as a docs-only change:
