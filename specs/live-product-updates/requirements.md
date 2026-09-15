@@ -1,6 +1,6 @@
 # Update product data without redeploying
 
-status: proposed
+status: accepted
 issue: #4
 
 ## Story
