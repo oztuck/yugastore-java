@@ -1,6 +1,6 @@
 # Change pricing rules without a redeploy
 
-status: proposed
+status: in-progress
 issue: #2
 
 ## Story

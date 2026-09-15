@@ -5,5 +5,5 @@ design-spec skills regenerate it. Shape: `docs/process/spec-convention.md`.
 
 | Spec | Status | Issue |
 |---|---|---|
-| [Change pricing rules without a redeploy](pricing-rules-without-redeploy/requirements.md) | `proposed` | #2 |
+| [Change pricing rules without a redeploy](pricing-rules-without-redeploy/requirements.md) | `in-progress` | #2 |
 | [Configure time-bound promo pricing without a redeploy](promo-pricing/requirements.md) | `proposed` | #1 |
