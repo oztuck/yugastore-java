@@ -9,3 +9,4 @@ design-spec skills regenerate it. Shape: `docs/process/spec-convention.md`.
 | [Configure time-bound promo pricing without a redeploy](promo-pricing/requirements.md) | `proposed` | #1 |
 | [Update product data without redeploying](live-product-updates/requirements.md) | `accepted` | #4 |
 | [Give the storefront a dark, modern gothic redesign](storefront-gothic-redesign/requirements.md) | `accepted` | #11 |
+| [Give the storefront a site-wide pirate theme](pirate-theme-storefront/requirements.md) | `proposed` | #15 |
