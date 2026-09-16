@@ -1,0 +1,11 @@
+# Tasks: Change pricing rules without a redeploy
+
+- [ ] 1. Scaffold `pricing-rules-microservice`: pom with Spring Boot 2.6.3, web, actuator, Eureka client, exec docker step; main class; `application.yml` on port 8087 with `pricing.rules.path` and `pricing.rules.refresh-ms`; add to root `pom.xml` modules (THE load file, THE GET endpoint)
+- [ ] 2. Rules model and `RulesFileLoader` with per-rule validation, skip-and-log, and empty set on missing or invalid file; unit tests for each validation branch (THE load file, IF percentage outside, IF file missing)
+- [ ] 3. `RulesRefreshScheduler` polling mtime every 5 s and `GET /pricing-rules-microservice/rules`; integration test that edits a temp file and sees new rules within the window (WHEN file changes, THE GET endpoint)
+- [ ] 4. Add sample `resources/pricing-rules.json` with one category rule, one ASIN rule, and one deliberately invalid rule (THE load file, IF percentage outside)
+- [ ] 5. Add Resilience4j circuit breaker starter to products-microservice; `PricingRulesRestClient` Feign client with fallback and 500 ms timeouts; `PricingRulesCache` with 10 s TTL returning an empty list on any failure; unit tests for the fallback path (WHILE unavailable products, WHILE unavailable checkout)
+- [ ] 6. `PriceRuleApplier` with largest-discount selection, file-order tie-break, and half-up rounding; `@Transient originalPrice` and `discountPercent` on `ProductMetadata` and `ProductRanking`; apply in all three `ProductCatalogController` endpoints; unit tests for ASIN match, category match, overlap, tie, no match, rounding (WHEN ASIN matches, WHEN belongs to a category, WHEN more than one, WHEN an order is placed, THE round)
+- [ ] 7. Add `originalPrice` and `discountPercent` to the gateway's `ProductMetadata` and `ProductRanking` so `/api/v1` responses keep them (WHEN a product has a discounted price)
+- [ ] 8. Storefront: render `originalPrice` struck through with a percent badge in `Products` and `ShowProduct` when present (WHEN a product has a discounted price)
+- [ ] 9. Docs: add the pricing-rules-microservice row (8087, no DB) to the AGENTS.md architecture table and reword the read-only-catalog gotcha; add the service to setup-local, start-app, and stop-app with the rules file path and the 30 s note (spec Notes; no criterion)

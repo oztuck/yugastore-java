@@ -1,6 +1,6 @@
 # Change pricing rules without a redeploy
 
-status: proposed
+status: in-progress
 issue: #2
 
 ## Story
@@ -21,6 +21,7 @@ IF a rule has a percentage outside 0 to 100 or is missing a required field THEN 
 IF the rules file is missing or is not valid JSON THEN THE pricing-rules-microservice SHALL log the reason and serve an empty rule set.
 WHILE the pricing-rules-microservice is unavailable THE products-microservice SHALL return original prices with no discount.
 WHILE the pricing-rules-microservice is unavailable THE checkout-microservice SHALL total orders at original prices.
+THE products-microservice SHALL round a discounted price to the nearest cent, rounding half-up.
 
 ## Out of scope
 
@@ -40,3 +41,7 @@ Discussed 2026-09-15, see `.transcripts/2026-09-15-pricing-rules-feature-discuss
 story adds a row to the AGENTS.md service table. The reasons for a new service
 rather than a write path in products-microservice or a rules table in YugabyteDB
 are recorded in `docs/decisions/0002-pricing-rules-service.md`.
+
+Assumption (2026-09-16): a merchandiser can get a changed `pricing-rules.json`
+onto the host pricing-rules-microservice reads from without a redeploy. How the
+file gets there is outside this story.
