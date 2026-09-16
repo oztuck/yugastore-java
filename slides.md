@@ -38,12 +38,15 @@ redesign.
 class: bg-[#f7edd8] text-[#172d3b]
 ---
 
-# The bottleneck
-## Before code exists
+<img class="absolute inset-0 h-full w-full object-cover opacity-12" src="https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=1920&q=80" alt="Nautical map" />
+<div class="absolute inset-0 bg-[#f7edd8]/88"></div>
+<div class="relative">
+
+# The bottleneck: before code exists
 
 <div class="mt-10 grid grid-cols-2 gap-12">
 <div>
-<div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#c85b3c] text-4xl text-white"><div class="i-carbon-chat"></div></div>
+<div class="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#c85b3c] text-2xl text-white"><div class="i-carbon-chat"></div></div>
 <div class="text-2xl font-bold text-[#174c57]">Intent gets scattered</div>
 
 <div class="mt-7 space-y-3 text-lg text-[#5e5145]">
@@ -52,11 +55,12 @@ class: bg-[#f7edd8] text-[#172d3b]
 </div>
 
 <div>
-<div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#174c57] text-4xl text-white"><div class="i-carbon-renew"></div></div>
+<div class="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#174c57] text-2xl text-white"><div class="i-carbon-renew"></div></div>
 <div class="text-2xl font-bold text-[#174c57]">Teams reconstruct it later</div>
 
 <div class="mt-7 space-y-3 text-lg text-[#5e5145]">
   <div>Developer assumptions</div><div>Tester questions</div><div>Rework</div>
+</div>
 </div>
 </div>
 </div>
@@ -96,20 +100,28 @@ class: bg-[#f7edd8] text-[#172d3b]
 
 # A shared delivery loop
 
-<div class="mt-12 grid grid-cols-4 gap-4 text-center text-lg font-bold">
-  <div class="border-2 border-[#c85b3c] bg-white/45 px-3 py-4">Idea</div>
-  <div class="border-2 border-[#c85b3c] bg-white/45 px-3 py-4">Specify</div>
-  <div class="border-2 border-[#c85b3c] bg-white/45 px-3 py-4">Design</div>
-  <div class="border-2 border-[#c85b3c] bg-white/45 px-3 py-4">Build</div>
+<div class="mx-auto mt-8 max-w-4xl space-y-10 text-center">
+<div>
+  <div class="mb-3 text-sm font-bold tracking-[0.16em] text-[#c85b3c]">AUTHOR LOOP</div>
+  <div class="grid grid-cols-4 gap-2 text-base font-bold">
+    <div class="border-2 border-[#c85b3c] bg-white/45 px-2 py-3">Idea</div>
+    <div class="border-2 border-[#c85b3c] bg-white/45 px-2 py-3">Specify</div>
+    <div class="border-2 border-[#c85b3c] bg-white/45 px-2 py-3">Design</div>
+    <div class="border-2 border-[#c85b3c] bg-white/45 px-2 py-3">Build</div>
+  </div>
 </div>
-<div class="my-3 text-center text-2xl text-[#c85b3c]"><div class="i-carbon-arrow-down inline-block"></div></div>
-<div class="grid grid-cols-3 gap-4 text-center text-lg font-bold">
-  <div class="border-2 border-[#c85b3c] bg-white/45 px-3 py-4">Verify</div>
-  <div class="border-2 border-[#c85b3c] bg-white/45 px-3 py-4">Review</div>
-  <div class="border-2 border-[#315d5b] bg-[#315d5b] px-3 py-4 text-white">Done</div>
+<div>
+  <div class="mb-3 text-sm font-bold tracking-[0.16em] text-[#174c57]">DEVELOPER LOOP</div>
+  <div class="grid grid-cols-4 gap-2 text-base font-bold">
+    <div class="border-2 border-[#d9a441] bg-white/45 px-2 py-3">Design</div>
+    <div class="border-2 border-[#d9a441] bg-white/45 px-2 py-3">Build</div>
+    <div class="border-2 border-[#d9a441] bg-white/45 px-2 py-3">Verify</div>
+    <div class="border-2 border-[#d9a441] bg-white/45 px-2 py-3">Review</div>
+  </div>
+</div>
 </div>
 
-<div class="mt-10 flex justify-between text-base text-[#5e5145]"><span><strong class="text-[#c85b3c]">AUTHOR</strong><br>requirements.md</span><span><strong class="text-[#c85b3c]">DEVELOPER</strong><br>design.md + tasks.md</span><span><strong class="text-[#c85b3c]">TEAM</strong><br>issue + PR evidence</span></div>
+<div class="mt-12 border-l-5 border-[#315d5b] py-2 pl-5 text-lg text-[#5e5145]"><strong class="text-[#315d5b]">TEAM</strong> &nbsp; Repository artifacts, issue status, and PR evidence connect both loops.</div>
 
 <!--
 The workflow is idea, specify, design, build, verify, review, and done. Each
@@ -122,6 +134,10 @@ collaboration surface around those canonical files.
 ---
 class: bg-[#e8f2ef] text-[#172d3b]
 ---
+
+<img class="absolute inset-0 h-full w-full object-cover opacity-10" src="https://images.unsplash.com/photo-1528150177508-7cc0c36cda5c?auto=format&fit=crop&w=1920&q=80" alt="Sailing ship" />
+<div class="absolute inset-0 bg-[#e8f2ef]/90"></div>
+<div class="relative">
 
 # Guided, not one-way
 
@@ -140,6 +156,7 @@ flowchart LR
 ```
 
 <div class="mt-7 border-l-5 border-[#c85b3c] py-2 pl-5 text-2xl font-bold text-[#174c57]">The path is linear. Learning is not.</div>
+</div>
 
 <!--
 The handoffs give us a normal path, but this is deliberately not a waterfall.
@@ -152,6 +169,10 @@ and write learning back into the shared artifacts.
 ---
 class: bg-[#f7edd8] text-[#172d3b]
 ---
+
+<img class="absolute inset-0 h-full w-full object-cover opacity-10" src="https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=1920&q=80" alt="Nautical map" />
+<div class="absolute inset-0 bg-[#f7edd8]/90"></div>
+<div class="relative">
 
 # The author flow
 ## From conversation to criterion
@@ -167,6 +188,7 @@ class: bg-[#f7edd8] text-[#172d3b]
 </div>
 
 <div>
+<div class="mb-5 border-l-4 border-[#d9a441] pl-4 text-sm italic leading-relaxed text-[#5e5145]">"Who is this for?"<br>"What should change?"<br>"What happens when it does not work?"</div>
 ```text
 WHEN a shopper opens a product
 card THE storefront SHALL show
@@ -174,6 +196,7 @@ the final price and promotion
 before the original price.
 ```
 <div class="mt-4 text-sm font-bold tracking-wide text-[#174c57]">ONE BEHAVIOR. ONE TESTABLE STATEMENT.</div>
+</div>
 </div>
 </div>
 
@@ -189,6 +212,10 @@ progress is not trapped in the session.
 class: bg-[#dceff0] text-[#172d3b]
 ---
 
+<img class="absolute inset-0 h-full w-full object-cover opacity-10" src="https://images.unsplash.com/photo-1528150177508-7cc0c36cda5c?auto=format&fit=crop&w=1920&q=80" alt="Sailing ship" />
+<div class="absolute inset-0 bg-[#dceff0]/90"></div>
+<div class="relative">
+
 # Prototype before commitment
 
 <div class="mt-8 grid grid-cols-2 gap-12">
@@ -202,9 +229,10 @@ class: bg-[#dceff0] text-[#172d3b]
 </div>
 
 <div>
-<div class="overflow-hidden border border-[#b9cfc9] bg-white shadow-lg">
+<div class="mx-auto max-w-sm overflow-hidden border border-[#b9cfc9] bg-white shadow-lg">
   <img class="h-45 w-full object-cover" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85" alt="Red running shoe" />
   <div class="p-5"><div class="font-bold">Trail Running Shoe</div><div class="mt-2"><s class="text-[#75675c]">$129</s> <strong class="ml-2 text-2xl text-[#c85b3c]">$89</strong></div><div class="mt-2 text-sm font-bold tracking-wide text-[#174c57]">30% OFF</div></div>
+</div>
 </div>
 </div>
 </div>
@@ -220,6 +248,10 @@ lost conversational context.
 ---
 class: bg-[#f7edd8] text-[#172d3b]
 ---
+
+<img class="absolute inset-0 h-full w-full object-cover opacity-8" src="https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=1920&q=80" alt="Nautical map" />
+<div class="absolute inset-0 bg-[#f7edd8]/92"></div>
+<div class="relative">
 
 # Developer design iteration
 
@@ -275,6 +307,7 @@ flowchart TB
   </div>
 </div>
 
+</div>
 </div>
 
 <!--
@@ -344,6 +377,10 @@ prototype reveals.
 class: bg-[#f7edd8] text-[#172d3b]
 ---
 
+<img class="absolute inset-0 h-full w-full object-cover opacity-10" src="https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=1920&q=80" alt="Nautical map" />
+<div class="absolute inset-0 bg-[#f7edd8]/90"></div>
+<div class="relative">
+
 # What we learned
 
 <div class="mt-8 grid grid-cols-2 gap-12">
@@ -353,6 +390,7 @@ class: bg-[#f7edd8] text-[#172d3b]
 
 <div>
 <div class="mt-4 border-t-5 border-[#c85b3c] bg-[#f0dfbf] p-7 text-xl leading-relaxed"><div class="text-xs font-bold tracking-[0.16em] text-[#c85b3c]">THE META-LEARNING</div><div class="mt-5">We built lightweight SDD infrastructure ourselves.</div><hr class="my-5 border-[#cbb18d]"/><div class="font-bold text-[#174c57]">Now we better understand why mature SDD tools exist.</div></div>
+</div>
 </div>
 </div>
 
