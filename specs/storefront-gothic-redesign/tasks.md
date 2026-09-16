@@ -2,7 +2,7 @@
 
 - [x] 1. Define the shared gothic palette and type scale (near-black backgrounds, single blood-red accent, sharp modern font stack) and apply it in `Home/index.css` and `Hero/index.css` (WHEN homepage hero/category sections rendered)
 - [x] 2. Apply the same dark palette to `NavBar/index.css` and set nav link text color for sufficient contrast against the new header background (THE storefront SHALL render the header ..., THE storefront SHALL display header navigation links with sufficient contrast)
-- [ ] 3. Create the new original vampire/gargoyle-themed logo mark SVG and swap it into `Logo/index.js`, preserving the existing `mode` light/dark prop contract (THE storefront SHALL replace the Yugastore logo)
+- [x] 3. Create the new original vampire/gargoyle-themed logo mark SVG and swap it into `Logo/index.js`, preserving the existing `mode` light/dark prop contract (THE storefront SHALL replace the Yugastore logo)
 - [ ] 4. Create original gothic background art SVG and wire it into `Hero/index.js` in place of `background@2x.png` (THE storefront SHALL display gargoyle/vampire-themed background art)
 - [ ] 5. Create original gargoyle/vampire icon accent SVGs and render one per category section in `Products/index.js` (THE storefront SHALL display gargoyle/vampire-themed icon accents)
 - [ ] 6. Add responsive layout to `Home/index.css`: single-column below the mobile breakpoint, multi-column above it (WHEN mobile-width viewport, WHEN desktop-width viewport)
