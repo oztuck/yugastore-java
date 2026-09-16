@@ -4,22 +4,23 @@ nav a {
 
 .nav-bar {
   display: flex;
-  background-color: transparent;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.94) 0%, rgba(14, 13, 17, 0.92) 100%);
+  border-bottom: 1px solid var(--gothic-border);
   height: 95px;
   justify-content: space-between;
   overflow: hidden;
-  box-shadow: none;
-  color: #8A949D55;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+  color: var(--gothic-text);
   position: fixed;
   z-index: 100;
+  font-family: var(--gothic-font);
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 .nav-bar.nav-bar-scrolled {
-  background-color: #fff;
-  border: none;
-  box-shadow: 0px 2px 4px rgba(132, 142, 151, 0.1);
-  color: #8A949D55;
+  background: linear-gradient(180deg, rgba(5, 5, 7, 0.98) 0%, rgba(12, 11, 14, 0.98) 100%);
+  border-bottom-color: var(--gothic-border);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.38);
+  color: var(--gothic-text);
   transition: 0.5s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
@@ -56,49 +57,49 @@ nav a {
   line-height: 88px;
   height: 95px;
   margin: 0 15px;
-  color: rgba(0,0,0,0.5);
-  font-weight: 300;
+  color: var(--gothic-text);
+  font-weight: 400;
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all;
   position: relative;
   font-size: inherit !important;
 
 }
 .nav-bar.nav-bar-scrolled li a {
-  color: #8A949D;
+  color: var(--gothic-text);
 }
 
 .nav-link-icon {
   font-size: 20px;
   margin-right: 10px;
   display: inline-block;
-  color: rgba(0,0,0,0.3);
+  color: var(--gothic-text-muted);
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
 .nav-bar.nav-bar-scrolled li a .nav-link-icon {
-  color: #8A949D55;
+  color: var(--gothic-text-muted);
 } 
 
 .nav-link-icon svg {
   vertical-align: middle;
 }
 .nav-link-icon g {
-  fill: rgba(0,0,0,0.3);
+  fill: var(--gothic-text-muted);
 }
 
 .nav-bar.nav-bar-scrolled li a .nav-link-icon g {
-  fill: #8A949D55;
+  fill: var(--gothic-text-muted);
 }
 
 .nav-bar.nav-bar-scrolled li a:hover, .nav-bar.nav-bar-scrolled li a.selected {
   background: transparent;
-  color: #2A3033;
+  color: var(--gothic-text);
   transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
 .nav-bar li a:hover, .nav-bar li a.selected {
   background: transparent;
-  color: #ffffff;
+  color: var(--gothic-text);
   transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
@@ -110,7 +111,7 @@ nav a {
   left: 50%;
   transform: translate(-20px, 0);
   content: '';
-  background-color: #2BB2AC;
+  background-color: var(--gothic-accent);
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
@@ -121,8 +122,8 @@ nav a {
 
 .nav-bar li a:hover .nav-link-icon, .nav-bar li a.selected .nav-link-icon, .nav-bar li a.selected .nav-link-icon g, .nav-bar li a:hover .nav-link-icon g {
   transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
-  color: #2BB2AC;
-  fill: #2BB2AC;
+  color: var(--gothic-accent);
+  fill: var(--gothic-accent);
 }
 
 .nav-link-text {
@@ -136,8 +137,8 @@ nav a {
 }
 
 .nav-bar .nav-cart a {
-  background-color: #ffffff22;
-  color: rgba(0,0,0,0.5);
+  background-color: rgba(240, 235, 243, 0.12);
+  color: var(--gothic-text);
   display: block;
   border-radius: 20px;
   height: 40px;
@@ -155,12 +156,12 @@ nav a {
 }
 
 .nav-bar.nav-bar-scrolled .nav-cart a {
-  background-color: #ffffff22;
-  color: #8A949D;
+  background-color: rgba(240, 235, 243, 0.12);
+  color: var(--gothic-text);
 }
 
 .nav-bar .nav-cart a.nav-cart-active {
-  background-color: #ffffff22;
+  background-color: rgba(240, 235, 243, 0.12);
   min-width: 122px;
   width: auto;
   transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
@@ -168,7 +169,7 @@ nav a {
 
 
 .nav-bar.nav-bar-scrolled .nav-cart a.nav-cart-active {
-  background-color: #F7F7F7;
+  background-color: var(--gothic-bg-muted);
   min-width: 122px;
   width: auto;
   transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
@@ -180,7 +181,7 @@ nav a {
 }
 
 .nav-cart a .nav-cart-count {
-  background-color: #2BB2AC;
+  background-color: var(--gothic-accent);
   color: #FFFFFF;
   border-radius: 11px;
   margin-left: 10px;
@@ -229,7 +230,7 @@ nav a {
 }
 
 .nav-bar .nav-cart a.nav-cart-active:hover {
-  background: #2BB2AC;
+  background: var(--gothic-accent);
   color: #FFFFFF;
   transition: 0.35s;
 }
