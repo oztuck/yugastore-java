@@ -1,0 +1,19 @@
+/* tokens.css — the ONLY file to edit to re-skin these slides.
+   Every color, font, and background used by layout.css is a variable here.
+   Diagram colors live in setup/mermaid.ts (Mermaid cannot read CSS vars). */
+:root {
+  --ink: #0b1020;
+  --panel: rgba(255,255,255,0.04);
+  --line: rgba(255,255,255,0.10);
+  --human: #7dd3fc;
+  --agent: #c4b5fd;
+  --gold: #fbbf24;
+  --mint: #6ee7b7;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --slide-bg: radial-gradient(1200px 600px at 10% -10%, #1e1b4b 0%, transparent 60%),
+              radial-gradient(900px 500px at 110% 110%, #0c4a6e 0%, transparent 60%),
+              var(--ink);
+}

@@ -23,7 +23,6 @@ mdc: true
 <h3>The loop it enforces</h3>
 
 ```mermaid {scale: 0.55}
-%%{init: {'theme':'dark','themeVariables':{'primaryColor':'#1e293b','primaryBorderColor':'#7dd3fc','primaryTextColor':'#e5e7eb','lineColor':'#94a3b8','edgeLabelBackground':'#0b1020','fontSize':'15px'}}}%%
 flowchart LR
     R["requirements.md<br/>status: accepted"] --> C["read the code<br/>the criteria name"]
     C --> P["propose<br/>“Here's what I'm thinking…”"]
@@ -31,10 +30,13 @@ flowchart LR
     I --> W["for choices with no criterion:<br/>“why must it work this way?”"]
     W --> V["Validated Direction<br/>author signs off"]
     V --> D["design.md · tasks.md<br/>convention checks"]
-    style P fill:#2a2450,stroke:#c4b5fd
-    style I fill:#2a2450,stroke:#c4b5fd
-    style W fill:#3b2f00,stroke:#fbbf24,color:#fde68a
-    style V fill:#052e2b,stroke:#6ee7b7
+    %% highlight classes (hex on purpose: Mermaid renders in a shadow DOM and cannot see tokens.css)
+    classDef gold fill:#3b2f00,stroke:#fbbf24,color:#fde68a
+    classDef mint fill:#052e2b,stroke:#6ee7b7,color:#e5e7eb
+    classDef violet fill:#2a2450,stroke:#c4b5fd,color:#e5e7eb
+    class P,I violet
+    class W gold
+    class V mint
 ```
 
 </div>
@@ -155,7 +157,6 @@ The point of this slide: the agent did not write and ask for approval. It asked 
 <h3>Service map</h3>
 
 ```mermaid {scale: 0.55}
-%%{init: {'theme':'dark','themeVariables':{'primaryColor':'#1e293b','primaryBorderColor':'#7dd3fc','primaryTextColor':'#e5e7eb','lineColor':'#94a3b8','edgeLabelBackground':'#0b1020','fontSize':'15px'}}}%%
 flowchart LR
     M([Merchandiser]) -->|edits| F[(pricing-rules.json)]
     F -.->|poll mtime every 5 s| PR
@@ -167,10 +168,12 @@ flowchart LR
     PR -->|GET rules| P
     P --> GW --> UI
     P --> CK
-    style PR fill:#3b2f00,stroke:#fbbf24,color:#fde68a
-    style P fill:#3b2f00,stroke:#fbbf24,color:#fde68a
-    style GW fill:#052e2b,stroke:#6ee7b7
-    style UI fill:#052e2b,stroke:#6ee7b7
+    %% highlight classes (hex on purpose: Mermaid renders in a shadow DOM and cannot see tokens.css)
+    classDef gold fill:#3b2f00,stroke:#fbbf24,color:#fde68a
+    classDef mint fill:#052e2b,stroke:#6ee7b7,color:#e5e7eb
+    classDef violet fill:#2a2450,stroke:#c4b5fd,color:#e5e7eb
+    class PR,P gold
+    class GW,UI mint
 ```
 
 </div>
@@ -179,7 +182,6 @@ flowchart LR
 <h3>Scenario 4 · rules service down</h3>
 
 ```mermaid {scale: 0.42}
-%%{init: {'theme':'dark','themeVariables':{'actorBkg':'#1e293b','actorBorder':'#7dd3fc','actorTextColor':'#e5e7eb','signalColor':'#94a3b8','signalTextColor':'#e5e7eb','noteBkgColor':'#3b2f00','noteBorderColor':'#fbbf24','noteTextColor':'#fde68a','fontSize':'15px'}}}%%
 sequenceDiagram
     participant Any as gateway / checkout
     participant P as Products
@@ -199,7 +201,6 @@ sequenceDiagram
 <h3>Rules file · room for BOGO</h3>
 
 ```mermaid {scale: 0.4}
-%%{init: {'theme':'dark','themeVariables':{'primaryColor':'#1e293b','primaryBorderColor':'#c4b5fd','primaryTextColor':'#e5e7eb','lineColor':'#94a3b8','fontSize':'15px'}}}%%
 classDiagram
     direction LR
     class Rule {
