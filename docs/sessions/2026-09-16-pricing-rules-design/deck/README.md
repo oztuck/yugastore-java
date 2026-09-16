@@ -23,12 +23,37 @@ diagrams in `slides.md`, because Slidev renders Mermaid in a shadow DOM.
 
 ## Importing these slides into another Slidev deck
 
-Instructions written so an agent (Copilot, Claude, Codex) can do this from the
-prompt: *"Import the slides from `<path>/deck/slides.md` into my deck and
-re-skin them with my palette."*
+Instructions written so an agent (Copilot, Claude, Codex) can do this from a
+prompt. A ready-made prompt is at the end of this section.
 
-1. **Copy this folder** into the host deck, for example `imports/travis/`.
-   Keep `slides.md`, `styles/`, and `setup/mermaid.ts` together.
+1. **Fetch this folder from GitHub, no checkout needed.** From the root of
+   the host deck, either source works; both put the files in
+   `imports/travis/` (any folder name is fine, adjust the paths below).
+
+   From the Yugastore branch, source of truth:
+
+   ```bash
+   npx degit oztuck/yugastore-java/docs/sessions/2026-09-16-pricing-rules-design/deck#pricing-rules-design-session imports/travis
+   ```
+
+   Or from the public mirror:
+
+   ```bash
+   npx degit tredfield/pricing-rules-design-deck imports/travis
+   ```
+
+   Fallback without degit: download the raw files one by one.
+
+   ```bash
+   B=https://raw.githubusercontent.com/tredfield/pricing-rules-design-deck/main
+   mkdir -p imports/travis/styles imports/travis/setup
+   for f in slides.md styles/tokens.css styles/layout.css setup/mermaid.ts; do
+     curl -fsSL "$B/$f" -o "imports/travis/$f"
+   done
+   ```
+
+   Only `slides.md`, `styles/tokens.css`, `styles/layout.css`, and
+   `setup/mermaid.ts` are needed. Delete the rest if degit brought it.
 
 2. **Import the slides** with one block in the host `slides.md` at the point
    they should appear:
@@ -85,3 +110,22 @@ re-skin them with my palette."*
 | `--gold` | the pivot card, mandatory sections, comparison table frame |
 | `--mint` | sign-off card, chosen option row |
 | `--font-sans`, `--font-mono` | body and code |
+
+## Prompt to hand your agent
+
+```
+Add Travis's three slides to this Slidev deck.
+1. Run: npx degit tredfield/pricing-rules-design-deck imports/travis
+   and keep only slides.md, styles/tokens.css, styles/layout.css, setup/mermaid.ts.
+2. In my slides.md, at the point the slides should appear, add a slide block
+   whose frontmatter is just:  src: ./imports/travis/slides.md
+3. In my styles/index.css, @import ../imports/travis/styles/layout.css and
+   ../imports/travis/styles/tokens.css, then add a :root block after them that
+   overrides the tokens with this deck's palette (see the token table in
+   imports/travis/README.md).
+4. Merge the themeVariables from imports/travis/setup/mermaid.ts into my
+   setup/mermaid.ts (create it if absent), then update the classDef hex values
+   in imports/travis/slides.md to match my palette.
+5. Run the dev server and confirm the three imported slides render with my
+   colours and their click reveals intact.
+```
