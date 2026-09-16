@@ -17,8 +17,8 @@ Introduce a shared dark, muted "modern gothic" palette and type scale (near-blac
 | `react-ui/frontend/src/components/Main/components/NavBar/index.css` | Dark header background from the shared palette; nav link colors meeting contrast against it |
 | `react-ui/frontend/src/components/Products/index.js` | Add gothic icon accent markup on category section headers; add `onError` fallback to a placeholder image on product images |
 | `react-ui/frontend/src/components/Products/index.css` | New card style (dark palette, accent border/shadow) applied consistently everywhere the component is reused (`/Books`, `/Music`, etc., per `App/index.js`) |
-| `react-ui/frontend/src/assets/gothic/icons/*.svg` (new) | Original gargoyle/vampire icon accents used on category sections |
-| `react-ui/frontend/src/assets/gothic/placeholder.svg` (new) | Shared placeholder image for failed hero/product image loads |
+| `react-ui/frontend/src/components/Products/gargoyle-icon.svg` (new) | Original gargoyle/vampire icon accent used on category sections (colocated with `Products`, the sole consumer, matching the codebase's existing per-component asset convention) |
+| `react-ui/frontend/src/components/common/gothic-placeholder.svg` (new) | Shared placeholder image for failed hero/product image loads (colocated under `components/common` since it's shared by both `Hero` and `Products`) |
 
 ## Data
 
