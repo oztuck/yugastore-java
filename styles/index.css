@@ -1,0 +1,4 @@
+/* Slidev 51.x bug: the Goto dialog (g key) slides 80px up when closed but its
+   results list still renders and hangs into the slide. Hide the list unless
+   the dialog is open. */
+#slidev-goto-dialog:not(.top-5) .autocomplete-list { display: none; }
