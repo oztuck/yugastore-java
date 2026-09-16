@@ -23,7 +23,7 @@ function Start-Jar {
         Where-Object { $_.Name -notlike "*.original" } | Select-Object -First 1
 
     if (-not $Jar) {
-        Write-Warning "Skipping $Module: no jar found in $Dir\target. Build it first."
+        Write-Warning "Skipping ${Module}: no jar found in ${Dir}\target. Build it first."
         return
     }
 
