@@ -9,4 +9,29 @@
   padding-top: 50px;
   padding-bottom: 50px;
   background-color: var(--gothic-bg-void);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop: category sections and product grids lay out in multiple columns
+   (see also Bootstrap `Col` breakpoints in Products/index.js). */
+@media (min-width: 768px) {
+  .paragraph {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* Mobile: collapse the hero and category sections to a single column. */
+@media (max-width: 767px) {
+  .content {
+    padding-top: 95px;
+  }
+
+  .paragraph {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 }

@@ -17,3 +17,10 @@
   position: relative;
   z-index: 1;
 }
+
+@media (max-width: 767px) {
+  .hero,
+  .hero img {
+    height: 280px;
+  }
+}
