@@ -14,13 +14,14 @@
 .product-details {
   padding: 10px 20px 0;
   overflow: hidden;
-  color: #5F6D74;
+  color: var(--gothic-text-muted);
 }
 
 .products-title {
   font-size: 18px;
   font-weight: 400;
-  color: #5F6D74;
+  color: var(--gothic-text);
+  font-family: var(--gothic-font);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -39,11 +40,16 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
-  background-color: white;
-  transition: transform 300ms bounce;
-  box-shadow: 4px 4px 20px rgba(0,0,0,0.1);
-  border-radius: 7px;
+  background-color: var(--gothic-bg-panel);
+  border: 1px solid var(--gothic-border);
+  transition: transform 300ms bounce, border-color 300ms;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  border-radius: 10px;
   margin-bottom: 50px;
+}
+
+.item:hover {
+  border-color: var(--gothic-accent);
 }
 
 .item .price-add {
@@ -72,7 +78,7 @@ img {
   transform: translateX(-3px);
 }
 .reviews-add {
-  color: #5F6D7499;
+  color: var(--gothic-text-muted);
   font-size: 13px;
   font-weight: 300;
 }
@@ -90,11 +96,12 @@ img {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; 
   -webkit-line-clamp: 3;
+  color: var(--gothic-text);
 }
 
 .product-description {
   font-size: 15px;
-  color: #5F6D74;
+  color: var(--gothic-text-muted);
   font-weight: 300;
   line-height: 24px;
   margin: 0;
@@ -103,7 +110,7 @@ img {
 .product-price {
   font-size: 18px;
   font-weight: 300;
-  color: #5F6D74;
+  color: var(--gothic-text);
 }
 
 .price-add {
@@ -128,7 +135,7 @@ i:hover {
   border-radius: 50%;
   height: 40px;
   width: 40px;
-  color: #2BB2AC;
+  color: var(--gothic-accent);
   display: block;
   font-size: 26px;
   line-height: 40px;
@@ -137,7 +144,7 @@ i:hover {
   padding-left: 2px;
 }
 .price-add i:hover {
-  background-color: #2BB2AC;
+  background-color: var(--gothic-accent);
   color: #ffffff;
   display: block;
   font-size: 26px;
