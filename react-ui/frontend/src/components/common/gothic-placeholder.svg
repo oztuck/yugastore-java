@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <!-- Shared placeholder for hero/product images that fail to load
+       (specs/storefront-gothic-redesign). Original artwork. -->
+  <rect width="400" height="400" fill="#0f0e12" />
+  <rect x="0.5" y="0.5" width="399" height="399" fill="none" stroke="#433646" stroke-width="1" />
+  <g fill="none" stroke="#A10032" stroke-width="6" stroke-linecap="round">
+    <path d="M120 260 L200 150 L280 260 Z" />
+  </g>
+  <circle cx="200" cy="120" r="10" fill="#A10032" />
+</svg>
