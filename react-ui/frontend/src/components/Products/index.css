@@ -6,9 +6,11 @@
 
 .product-img {
   width: 100%;
-  background-size: cover; 
   height: 280px;
   min-height: 280px;
+  object-fit: cover;
+  display: block;
+  background-color: var(--gothic-bg-muted);
 }
 
 .product-details {

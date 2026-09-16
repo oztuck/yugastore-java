@@ -7,5 +7,5 @@
 - [x] 5. Create original gargoyle/vampire icon accent SVGs and render one per category section in `Products/index.js` (THE storefront SHALL display gargoyle/vampire-themed icon accents)
 - [x] 6. Add responsive layout to `Home/index.css`: single-column below the mobile breakpoint, multi-column above it (WHEN mobile-width viewport, WHEN desktop-width viewport)
 - [x] 7. Restyle `Products/index.css` cards with the new palette, verified consistent on `/Books`, `/Music`, and other category routes (THE storefront SHALL apply the redesigned product card style)
-- [ ] 8. Add `onError` placeholder fallback (new `assets/gothic/placeholder.svg`) to hero and product images in `Hero/index.js` and `Products/index.js` (IF a hero or product image fails to load)
+- [x] 8. Add `onError` placeholder fallback (new `assets/gothic/placeholder.svg`) to hero and product images in `Hero/index.js` and `Products/index.js` (IF a hero or product image fails to load)
 - [ ] 9. Regression-check add-to-cart from a restyled product card still works end-to-end with no logic changes (WHEN a shopper adds an item to the cart from a redesigned product card)

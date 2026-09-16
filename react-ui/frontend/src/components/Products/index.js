@@ -8,6 +8,7 @@ import { Button } from '../../components/common';
 //Internals
 import './index.css';
 import gargoyleIcon from './gargoyle-icon.svg';
+import placeholderImage from '../common/gothic-placeholder.svg';
 
 class Products extends Component {
   state = {current_query: "", category: undefined, products: [], isUpdating: true}
@@ -107,7 +108,12 @@ class Products extends Component {
                   <Col lg={3} md={6} xs={12} key={product.id.asin || product.id}>
                     <div className="item" >
                       <Link to={`/item/${product.id.asin || product.id}`}>
-                        <div className="product-img" style={{backgroundImage: `url(${product.imUrl})`}}></div>
+                        <img
+                          className="product-img"
+                          src={product.imUrl}
+                          alt={product.title}
+                          onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
+                        />
                         <div className="product-details">
                           <div className="reviews-add">
                             <div className="stars">
