@@ -11,13 +11,13 @@ if (-not (Test-Path $PidDir)) {
 
 Get-ChildItem -Path $PidDir -Filter "*.pid" | ForEach-Object {
     $Module = $_.BaseName
-    $Pid = Get-Content $_.FullName
-    $Proc = Get-Process -Id $Pid -ErrorAction SilentlyContinue
+    $ProcId = Get-Content $_.FullName
+    $Proc = Get-Process -Id $ProcId -ErrorAction SilentlyContinue
     if ($Proc) {
-        Write-Host "Stopping $Module (pid $Pid)"
-        Stop-Process -Id $Pid -Force
+        Write-Host "Stopping $Module (pid $ProcId)"
+        Stop-Process -Id $ProcId -Force
     } else {
-        Write-Host "$Module (pid $Pid) already stopped"
+        Write-Host "$Module (pid $ProcId) already stopped"
     }
     Remove-Item $_.FullName -Force
 }
