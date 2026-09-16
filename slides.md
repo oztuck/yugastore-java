@@ -223,28 +223,77 @@ class: bg-[#f7edd8] text-[#172d3b]
 
 # Developer design iteration
 
-<div class="mt-8 grid grid-cols-2 gap-12">
+<div class="mt-4 grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-8 items-start text-sm">
+
 <div>
-<div class="mt-6 space-y-3">
-  <div class="border-l-5 border-[#c85b3c] bg-white/55 p-3"><strong class="block text-[#174c57]">requirements.md</strong><span class="text-sm text-[#5e5145]">accepted intent</span></div>
-  <div class="border-l-5 border-[#d9a441] bg-white/55 p-3"><strong class="block text-[#174c57]">design interview</strong><span class="text-sm text-[#5e5145]">architecture + constraints</span></div>
-  <div class="border-l-5 border-[#174c57] bg-white/55 p-3"><strong class="block text-[#174c57]">design.md</strong><span class="text-sm text-[#5e5145]">approach + open questions</span></div>
-  <div class="border-l-5 border-[#315d5b] bg-white/55 p-3"><strong class="block text-[#174c57]">tasks.md</strong><span class="text-sm text-[#5e5145]">small, traceable work</span></div>
-</div>
+  <div class="text-xs font-bold tracking-[0.18em] text-[#5e5145]">INPUT</div>
+  <div class="mt-1 border-l-5 border-[#c85b3c] bg-white/55 px-3 py-2"><strong class="text-[#174c57]">requirements.md</strong> <span class="text-[#5e5145]">· accepted intent</span></div>
+
+  <div class="my-1.5 ml-3 h-4 border-l-2 border-dashed border-[#d9a441]"></div>
+
+  <div class="border-l-5 border-[#d9a441] bg-white/55 px-3 py-2">
+    <strong class="block text-[#174c57]">design interview</strong>
+    <div class="mt-1 space-y-0.5 text-[#5e5145]">
+      <div><b class="mr-2 text-[#c85b3c]">1</b>propose first: "here's what I'm thinking…"</div>
+      <div><b class="mr-2 text-[#c85b3c]">2</b>ask one topic at a time</div>
+      <div><b class="mr-2 text-[#c85b3c]">3</b>challenge every choice with no criterion</div>
+      <div><b class="mr-2 text-[#c85b3c]">4</b>author signs a Validated Direction</div>
+    </div>
+  </div>
+
+  <div class="my-1.5 ml-3 h-4 border-l-2 border-dashed border-[#d9a441]"></div>
+
+  <div class="text-xs font-bold tracking-[0.18em] text-[#5e5145]">OUTPUT</div>
+  <div class="mt-1 border-l-5 border-[#174c57] bg-white/55 px-3 py-2"><strong class="text-[#174c57]">design.md</strong> <span class="text-[#5e5145]">· approach, diagrams, criteria mapping</span></div>
+  <div class="mt-2 border-l-5 border-[#315d5b] bg-white/55 px-3 py-2"><strong class="text-[#174c57]">tasks.md</strong> <span class="text-[#5e5145]">· one commit each, traced to a criterion</span></div>
+
+  <div class="mt-5 border-l-4 border-[#c85b3c] pl-3 text-base italic leading-snug text-[#c85b3c]">"Does this direction fit the system we have?"</div>
 </div>
 
 <div>
-<div class="mt-12 border-y-3 border-[#c85b3c] py-6 text-3xl italic leading-snug text-[#c85b3c]">"Does this direction fit the system we have?"</div>
-<div class="mt-5 text-sm text-[#5e5145]">New questions return to the author before assumptions turn into code.</div>
+  <div class="text-xs font-bold tracking-[0.18em] text-[#5e5145]">WORKED EXAMPLE · SPEC #2, PRICING RULES</div>
+  <div class="mt-1 flex justify-center rounded-lg border border-[#cce2df] bg-white/55 px-2 py-1">
+
+```mermaid {scale: 0.46}
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#ffffff','primaryBorderColor':'#174c57','primaryTextColor':'#172d3b','lineColor':'#5e5145','edgeLabelBackground':'#f7edd8','fontSize':'16px'}}}%%
+flowchart TB
+    F[("pricing-rules.json<br/>edited by a merchandiser")] -.->|polled every 5 s| PR["pricing-rules :8087 · new<br/>load · validate · serve"]
+    PR -->|GET rules| P["products :8082<br/>breaker · largest discount<br/>price = effective"]
+    P --> UI["storefront<br/>strikes the original price"]
+    P --> CK["checkout<br/>unchanged"]
+    classDef changed fill:#fff3d6,stroke:#d9a441,color:#172d3b
+    classDef touched fill:#e8f2ef,stroke:#315d5b,color:#172d3b
+    class PR,P changed
+    class UI touched
+```
+
+  </div>
+  <div class="mt-2 flex flex-wrap gap-2 text-xs">
+    <span class="border border-[#d9a441] bg-[#fff3d6] px-2.5 py-1">14 interview questions</span>
+    <span class="border border-[#174c57] px-2.5 py-1">13 criteria → 13 mapping rows → 9 tasks</span>
+    <span class="border border-[#174c57] px-2.5 py-1">11 alternatives rejected on record</span>
+  </div>
 </div>
+
 </div>
 
 <!--
 The developer starts from an accepted requirement and runs a design interview
-to validate architecture, constraints, and technical direction. design.md
-records the approach and open questions. tasks.md turns approved work into
-small, traceable steps. A question that changes intent goes back to the author
-instead of becoming an undocumented assumption in code.
+to validate architecture, constraints, and technical direction. The agent
+proposes first, asks one topic at a time, and has to challenge any design
+choice that has no acceptance criterion behind it. Nothing is written until
+the author signs a Validated Direction.
+
+On the right is what that produced for the pricing-rules story: a new
+file-driven rules service, products applies the discount and keeps price as
+the effective price, so checkout is correct with no change. Gold boxes are
+the services that change. Fourteen questions, one brainstorm when Travis asked
+to understand the price-shape trade-off before choosing, thirteen criteria
+each mapped to a design element and a task. The full interview log and the
+design are on the branch.
+
+A question that changes intent goes back to the author instead of becoming an
+undocumented assumption in code.
 -->
 
 ---
