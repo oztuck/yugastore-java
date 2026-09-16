@@ -7,6 +7,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Button } from '../../components/common';
 //Internals
 import './index.css';
+import gargoyleIcon from './gargoyle-icon.svg';
 
 class Products extends Component {
   state = {current_query: "", category: undefined, products: [], isUpdating: true}
@@ -76,6 +77,7 @@ class Products extends Component {
       <div className={ "container " + (this.props.isInline ? '' : "content")}>
         <div className="products">
         <div className="products-title">
+          <img className="products-title-icon" src={gargoyleIcon} alt="" aria-hidden="true" />
           <h1 className="highlights-title">{this.props.name || this.linkDecode(category) || "Our bestsellers"}</h1>
         </div>
 

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <!-- Original gargoyle-head icon accent for category section headers
+       (specs/storefront-gothic-redesign). Hand-drawn silhouette, no
+       third-party artwork. -->
+  <g fill="#A10032">
+    <path d="M14 2
+      c-4 0 -7 3 -7 7
+      c-2 0 -3 2 -2 4
+      c-1 1 -1 3 1 4
+      c0 3 3 5 4 5
+      l0 3
+      l8 0
+      l0 -3
+      c1 0 4 -2 4 -5
+      c2 -1 2 -3 1 -4
+      c1 -2 0 -4 -2 -4
+      c0 -4 -3 -7 -7 -7
+      z" />
+  </g>
+  <g fill="#0f0e12">
+    <circle cx="11" cy="12" r="1.6" />
+    <circle cx="17" cy="12" r="1.6" />
+    <path d="M12 17 q2 2 4 0 q-2 3 -4 0 z" />
+  </g>
+</svg>
