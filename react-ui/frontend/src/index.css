@@ -1,12 +1,26 @@
+:root {
+  /* Shared "modern gothic" theme (specs/storefront-gothic-redesign) */
+  --gothic-bg-void: #05030A;
+  --gothic-bg-panel: #0f0e12;
+  --gothic-bg-muted: #433646;
+  --gothic-border: rgba(161, 0, 50, 0.14);
+  --gothic-accent: #A10032;
+  --gothic-text: #f0ebf3;
+  --gothic-text-muted: #a79fae;
+  --gothic-font: 'Inter Tight', 'Avenir Next Condensed', 'Segoe UI', 'Arial Narrow', sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: Roboto, sans-serif !important;
   font-size: 15px !important;
+  background-color: var(--gothic-bg-void);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Baskerville, "Libre Baskerville", sans-serif !important;
+  font-family: var(--gothic-font) !important;
+  color: var(--gothic-text);
 }
 
 h5 {

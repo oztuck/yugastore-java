@@ -1,6 +1,6 @@
 # Give the storefront a dark, modern gothic redesign
 
-status: accepted
+status: in-progress
 issue: #11
 
 ## Story
