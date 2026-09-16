@@ -1,0 +1,17 @@
+{
+  "name": "pricing-rules-design-interview-deck",
+  "private": true,
+  "scripts": {
+    "dev": "slidev slides.md --open",
+    "build": "slidev build slides.md",
+    "export": "slidev export slides.md --output design-interview.pdf"
+  },
+  "dependencies": {
+    "@slidev/cli": "^51",
+    "@slidev/theme-default": "latest",
+    "vue": "^3.5"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.63.0"
+  }
+}

@@ -22,6 +22,7 @@ author and the agent collaborated to produce `design.md`, its diagrams, and
 | `interview-log.md` | Every proposal, question, answer, and decision in order |
 | `validated-direction.md` | The design-interview output the author signed off |
 | `presentation-notes.md` | Talking points and before/after material for the demo |
+| `deck/` | Two-slide Slidev deck: the interview flow and the resulting design diagrams. `npm install && npm run dev` |
 
 ## Timeline
 
@@ -37,3 +38,4 @@ author and the agent collaborated to produce `design.md`, its diagrams, and
 | 7 | Validated Direction written and signed off; author chose to label issue #2 only |
 | 8 | Agent wrote `design.md` and `tasks.md`, ran the convention checks, applied three spec amendments the check surfaced, carried ADR 0002 onto the branch |
 | 9 | Committed on the branch; issue #2 labelled `in-progress` |
+| 10 | Two-slide Slidev deck built in `deck/` from the log and design.md |
